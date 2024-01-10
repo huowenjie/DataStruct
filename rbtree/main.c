@@ -2,7 +2,7 @@
 #include "rbtree.h"
 
 /* 打印树信息 */
-static void visit_tree(void *key, void *data, int bh);
+static void visit_tree(void *key, void *data, void *args);
 
 struct key_value
 {
@@ -37,12 +37,12 @@ int main(int argc, char *argv[])
     rb_delete(tree, "D", NULL);
 #endif
 
-    rb_iterate(tree, visit_tree);
+    rb_iterate(tree, visit_tree, NULL);
     rb_destroy(tree);
     return 0;
 }
 
-void visit_tree(void *key, void *data, int bh)
+void visit_tree(void *key, void *data, void *args)
 {
-    printf("key:%s, data = %s, bh = %d\n", (const char *)key, (const char *)data, bh);
+    printf("key:%s, data = %s\n", (const char *)key, (const char *)data);
 }

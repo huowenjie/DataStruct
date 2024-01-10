@@ -38,6 +38,6 @@ int rb_delete(RB_TREE *tree, const char *key, void **data);
 int rb_find(RB_TREE *tree, const char *key, void **data);
 
 /* 遍历红黑树 */
-int rb_iterate(RB_TREE *tree, void (*visit_before)(void *key, void *data, int bh));
+int rb_iterate(RB_TREE *tree, void (*visit_before)(void *key, void *data, void *args), void *args);
 
 #endif /* __RBTREE_H__ */
