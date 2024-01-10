@@ -517,17 +517,17 @@ int rb_insert_fixup_tree(RB_TREE *tree, RB_NODE *node)
             uncle = parent->parent->right;
 
             if (uncle && uncle->color == RBTREE_COLOR_RED) {
-                /* 叔叔的颜色是红色 */
                 uncle->color = RBTREE_COLOR_BLACK;
                 parent->color = RBTREE_COLOR_BLACK;
                 parent->parent->color = RBTREE_COLOR_RED;
 
                 parent->parent->bh++;
                 tmp = parent->parent;
+                parent = tmp->parent;
             } else if (tmp == parent->right) {
+                tmp = parent;
                 rb_left_rotate(tree, tmp);
-                parent = tmp;
-                tmp = tmp->left;
+                parent = tmp->parent;
 
                 parent->color = RBTREE_COLOR_BLACK;
                 parent->parent->color = RBTREE_COLOR_RED;
@@ -541,20 +541,17 @@ int rb_insert_fixup_tree(RB_TREE *tree, RB_NODE *node)
             uncle = parent->parent->left;
 
             if (uncle && uncle->color == RBTREE_COLOR_RED) {
-                /* 叔叔的颜色是红色 */
                 uncle->color = RBTREE_COLOR_BLACK;
                 parent->color = RBTREE_COLOR_BLACK;
                 parent->parent->color = RBTREE_COLOR_RED;
 
                 parent->parent->bh++;
                 tmp = parent->parent;
+                parent = tmp->parent;
             } else if (tmp == parent->left) {
-                /* 叔叔的颜色是黑色且儿子是父亲的右孩子 */
-
-                /* 这次旋转对黑高无影响 */
+                tmp = parent;
                 rb_right_rotate(tree, tmp);
-                parent = tmp;
-                tmp = tmp->right;
+                parent = tmp->parent;
 
                 parent->color = RBTREE_COLOR_BLACK;
                 parent->parent->color = RBTREE_COLOR_RED;
